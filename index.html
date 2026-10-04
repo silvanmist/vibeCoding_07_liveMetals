@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>골드나우 (GoldNow) - 실시간 귀금속 & 금속 시세 대시보드</title>
+  <meta name="description" content="금, 은, 구리, 플래티넘 등 주요 귀금속 및 산업 금속의 실시간 원화(KRW) 및 USD 원시세와 기간별 변동 추이 차트를 제공하는 실시간 시세 플랫폼">
+  
+  <!-- Google Fonts: Inter & Noto Sans KR -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+KR:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- 최상단 배경 블러 글로우 효과 -->
+  <div class="glow-bg glow-gold"></div>
+  <div class="glow-bg glow-silver"></div>
+
+  <div class="app-container">
+    <!-- 헤더 섹션 -->
+    <header class="app-header">
+      <div class="header-left">
+        <div class="brand-logo">
+          <div class="logo-icon">
+            <i class="fa-solid fa-coins"></i>
+          </div>
+          <div class="brand-text">
+            <h1>GoldNow <span class="brand-kr">골드나우</span></h1>
+            <p class="subtitle">실시간 귀금속 & 원자재 시세 모니터링</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="header-right">
+        <!-- 단위 선택 토글 (온스 / 그램 / 돈) -->
+        <div class="unit-selector-wrapper">
+          <span class="selector-label"><i class="fa-solid fa-scale-balanced"></i> 단위 기준</span>
+          <div class="unit-buttons" id="unitSelector">
+            <button class="unit-btn active" data-unit="oz" id="unit-oz">1 온스(oz)</button>
+            <button class="unit-btn" data-unit="g" id="unit-g">1 그램(g)</button>
+            <button class="unit-btn" data-unit="don" id="unit-don">1 돈(3.75g)</button>
+          </div>
+        </div>
+
+        <!-- 상태 배지 및 새로고침 -->
+        <div class="header-actions">
+          <div class="sync-status" id="syncStatus">
+            <span class="status-dot"></span>
+            <span class="status-text" id="statusText">데이터 연결 중...</span>
+          </div>
+          <button class="icon-action-btn" id="refreshBtn" title="시세 새로고침">
+            <i class="fa-solid fa-arrows-rotate"></i>
+            <span class="btn-text">새로고침</span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- 실시간 메타 정보 바 -->
+    <div class="info-bar">
+      <div class="info-left">
+        <span class="currency-tag"><i class="fa-solid fa-won-sign"></i> 대표 통화: 대한민국 원(KRW)</span>
+        <span class="fx-rate-tag" id="fxRateDisplay"><i class="fa-solid fa-dollar-sign"></i> 기준 환율: 1 USD = ₩1,343.39</span>
+        <span class="update-time" id="lastUpdatedTime"><i class="fa-regular fa-clock"></i> 업데이트: 대기 중</span>
+      </div>
+      <div class="info-right">
+        <span class="api-notice" id="apiNoticeBadge"><i class="fa-solid fa-shield-halved"></i> 보안 프록시 API 연동됨</span>
+      </div>
+    </div>
+
+    <!-- 1. 상단 레이아웃: 금속별 현재 가격 카드뷰 그리드 -->
+    <section class="section-cards" id="priceCardsSection">
+      <div class="section-header">
+        <div class="section-title-wrap">
+          <h2 class="section-title"><i class="fa-solid fa-layer-group"></i> 주요 금속 실시간 시세 (카드뷰)</h2>
+          <p class="section-desc">대표 원화(KRW) 시세와 변환 전 달러(USD) 원시세가 함께 표시되며, 카드를 클릭하면 하단 상세 차트로 이동합니다.</p>
+        </div>
+      </div>
+
+      <div class="cards-grid" id="cardsGrid">
+        <!-- JavaScript로 동적 렌더링 -->
+      </div>
+    </section>
+
+    <!-- 2. 하단 레이아웃: 기간 선택 및 세로형 차트 뷰 -->
+    <section class="section-charts" id="chartsSection">
+      <div class="section-header chart-section-header">
+        <div class="section-title-wrap">
+          <h2 class="section-title"><i class="fa-solid fa-chart-line"></i> 금속별 시세 변동 추이 (세로형 개별 차트)</h2>
+          <p class="section-desc">기간을 선택하면 각 금속의 기간 내 변동 그래프와 최고/최저/평균 통계가 세로로 1개씩 표시됩니다.</p>
+        </div>
+
+        <!-- 기간 선택 필터 탭 -->
+        <div class="period-filter-wrapper">
+          <div class="period-tabs" id="periodTabs">
+            <button class="period-tab active" data-period="5d">5일</button>
+            <button class="period-tab" data-period="7d">1주일 (7일)</button>
+            <button class="period-tab" data-period="1m">1개월 (30일)</button>
+            <button class="period-tab" data-period="3m">3개월</button>
+            <button class="period-tab" data-period="1y">1년</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 세로형 1개씩 순차 배치되는 차트 리스트 컨테이너 -->
+      <div class="charts-vertical-list" id="chartsVerticalList">
+        <!-- JS로 각 금속 차트 카드가 세로로 1개씩 생성됨 -->
+      </div>
+    </section>
+
+    <!-- 푸터 -->
+    <footer class="app-footer">
+      <div class="footer-content">
+        <div class="footer-left">
+          <p class="footer-title">GoldNow (골드나우)</p>
+          <p class="footer-copy">제공되는 시세는 국제 귀금속 현물 기준가(USD) 및 원화(KRW) 환산 가격이며, 실제 귀금속 소매상 매매 시 부가세, 공임, 유통 마진에 따라 차이가 있을 수 있습니다.</p>
+        </div>
+        <div class="footer-right">
+          <span class="footer-tag">GoldNow Engine v2.2 (Secured)</span>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

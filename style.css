@@ -1,0 +1,922 @@
+/* ==========================================================================
+   MetalPulse Korea - Modern Metallic Financial Stylesheet (v2.1)
+   ========================================================================== */
+
+:root {
+  /* Core Colors */
+  --bg-main: #070a12;
+  --bg-card: rgba(15, 23, 42, 0.75);
+  --bg-card-hover: rgba(26, 38, 66, 0.85);
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border-highlight: rgba(255, 255, 255, 0.16);
+  
+  /* Text Colors */
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+  
+  /* Accent Metallic Colors */
+  --gold-primary: #f59e0b;
+  --gold-glow: rgba(245, 158, 11, 0.25);
+  --gold-gradient: linear-gradient(135deg, #fbbf24 0%, #d97706 100%);
+  
+  --silver-primary: #cbd5e1;
+  --silver-glow: rgba(203, 213, 225, 0.25);
+  --silver-gradient: linear-gradient(135deg, #f1f5f9 0%, #64748b 100%);
+  
+  --copper-primary: #f97316;
+  --copper-glow: rgba(249, 115, 22, 0.25);
+  --copper-gradient: linear-gradient(135deg, #fb923c 0%, #c2410c 100%);
+  
+  --platinum-primary: #38bdf8;
+  --platinum-glow: rgba(56, 189, 248, 0.25);
+  --platinum-gradient: linear-gradient(135deg, #7dd3fc 0%, #0284c7 100%);
+  
+  --palladium-primary: #a855f7;
+  --palladium-glow: rgba(168, 85, 247, 0.25);
+  --palladium-gradient: linear-gradient(135deg, #c084fc 0%, #7e22ce 100%);
+
+  /* Market Trend Colors (상승=적색, 하락=청색) */
+  --trend-up: #ef4444;
+  --trend-up-bg: rgba(239, 68, 68, 0.12);
+  --trend-down: #3b82f6;
+  --trend-down-bg: rgba(59, 130, 246, 0.12);
+  --trend-neutral: #94a3b8;
+
+  /* Typography */
+  --font-family: 'Inter', 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
+  
+  /* Layout & Radii */
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+  --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-normal: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-family);
+  background-color: var(--bg-main);
+  color: var(--text-primary);
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Background Ambient Lighting */
+.glow-bg {
+  position: fixed;
+  width: 550px;
+  height: 550px;
+  border-radius: 50%;
+  filter: blur(140px);
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.18;
+}
+
+.glow-gold {
+  top: -150px;
+  left: 5%;
+  background: radial-gradient(circle, #f59e0b, transparent 70%);
+}
+
+.glow-silver {
+  top: 300px;
+  right: -100px;
+  background: radial-gradient(circle, #38bdf8, transparent 70%);
+}
+
+/* Container */
+.app-container {
+  position: relative;
+  z-index: 1;
+  max-width: 1360px;
+  margin: 0 auto;
+  padding: 24px 24px 60px;
+}
+
+/* ==========================================================================
+   Header Section
+   ========================================================================== */
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 20px 28px;
+  background: var(--bg-card);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+  margin-bottom: 16px;
+}
+
+.brand-logo {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.logo-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: var(--radius-md);
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 50%, #92400e 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  color: #fff;
+  box-shadow: 0 8px 20px var(--gold-glow);
+}
+
+.brand-text h1 {
+  font-size: 1.6rem;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.brand-kr {
+  font-size: 0.8rem;
+  font-weight: 700;
+  background: rgba(245, 158, 11, 0.2);
+  color: var(--gold-primary);
+  border: 1px solid rgba(245, 158, 11, 0.4);
+  padding: 2px 8px;
+  border-radius: 20px;
+  text-transform: uppercase;
+}
+
+.subtitle {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  font-weight: 400;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+/* Unit Selector */
+.unit-selector-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(0, 0, 0, 0.35);
+  padding: 6px 10px 6px 14px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-subtle);
+}
+
+.selector-label {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.unit-buttons {
+  display: flex;
+  gap: 4px;
+}
+
+.unit-btn {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--text-secondary);
+  font-size: 0.82rem;
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: var(--transition-fast);
+}
+
+.unit-btn:hover {
+  color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.unit-btn.active {
+  background: var(--gold-gradient);
+  color: #000;
+  font-weight: 700;
+  box-shadow: 0 4px 12px var(--gold-glow);
+}
+
+/* Header Actions */
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.sync-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  padding: 6px 12px;
+  background: rgba(0, 0, 0, 0.25);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-subtle);
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #22c55e;
+  box-shadow: 0 0 10px #22c55e;
+  animation: pulse-dot 2s infinite;
+}
+
+@keyframes pulse-dot {
+  0% { transform: scale(0.95); opacity: 0.8; }
+  50% { transform: scale(1.15); opacity: 1; box-shadow: 0 0 14px #22c55e; }
+  100% { transform: scale(0.95); opacity: 0.8; }
+}
+
+.icon-action-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(135deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02));
+  border: 1px solid var(--border-highlight);
+  color: var(--text-primary);
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 8px 16px;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: var(--transition-fast);
+}
+
+.icon-action-btn:hover {
+  background: rgba(255, 255, 255, 0.12);
+  transform: translateY(-1px);
+}
+
+.icon-action-btn.spinning i {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Info Bar */
+.info-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 10px 18px;
+  background: rgba(15, 23, 42, 0.45);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-subtle);
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  margin-bottom: 28px;
+}
+
+.currency-tag {
+  color: var(--gold-primary);
+  font-weight: 600;
+  margin-right: 14px;
+}
+
+.fx-rate-tag {
+  color: #38bdf8;
+  font-weight: 600;
+  margin-right: 14px;
+  background: rgba(56, 189, 248, 0.1);
+  padding: 2px 8px;
+  border-radius: 6px;
+  border: 1px solid rgba(56, 189, 248, 0.2);
+}
+
+.api-notice {
+  color: #22c55e;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* ==========================================================================
+   Section Headers
+   ========================================================================== */
+.section-header {
+  margin-bottom: 18px;
+}
+
+.section-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.section-title i {
+  color: var(--gold-primary);
+  font-size: 1.15rem;
+}
+
+.section-desc {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin-top: 4px;
+}
+
+/* ==========================================================================
+   1. Top Cards Grid (Card View)
+   ========================================================================== */
+.section-cards {
+  margin-bottom: 44px;
+}
+
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 18px;
+}
+
+/* Metal Price Card */
+.metal-card {
+  position: relative;
+  background: var(--bg-card);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 22px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.metal-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: transparent;
+  transition: var(--transition-fast);
+}
+
+.metal-card:hover {
+  transform: translateY(-4px);
+  background: var(--bg-card-hover);
+  border-color: var(--border-highlight);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.45);
+}
+
+/* Specific Metal Colors & Badges */
+.metal-card.gold::before { background: var(--gold-gradient); }
+.metal-card.gold:hover { box-shadow: 0 16px 36px var(--gold-glow); border-color: rgba(245, 158, 11, 0.4); }
+
+.metal-card.silver::before { background: var(--silver-gradient); }
+.metal-card.silver:hover { box-shadow: 0 16px 36px var(--silver-glow); border-color: rgba(203, 213, 225, 0.4); }
+
+.metal-card.copper::before { background: var(--copper-gradient); }
+.metal-card.copper:hover { box-shadow: 0 16px 36px var(--copper-glow); border-color: rgba(249, 115, 22, 0.4); }
+
+.metal-card.platinum::before { background: var(--platinum-gradient); }
+.metal-card.platinum:hover { box-shadow: 0 16px 36px var(--platinum-glow); border-color: rgba(56, 189, 248, 0.4); }
+
+.metal-card.palladium::before { background: var(--palladium-gradient); }
+.metal-card.palladium:hover { box-shadow: 0 16px 36px var(--palladium-glow); border-color: rgba(168, 85, 247, 0.4); }
+
+.card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.metal-identity {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  flex: 1;
+}
+
+.metal-badge-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  color: #fff;
+  flex-shrink: 0;
+}
+
+.metal-card.gold .metal-badge-icon { background: rgba(245, 158, 11, 0.15); color: var(--gold-primary); border: 1px solid rgba(245, 158, 11, 0.3); }
+.metal-card.silver .metal-badge-icon { background: rgba(203, 213, 225, 0.15); color: var(--silver-primary); border: 1px solid rgba(203, 213, 225, 0.3); }
+.metal-card.copper .metal-badge-icon { background: rgba(249, 115, 22, 0.15); color: var(--copper-primary); border: 1px solid rgba(249, 115, 22, 0.3); }
+.metal-card.platinum .metal-badge-icon { background: rgba(56, 189, 248, 0.15); color: var(--platinum-primary); border: 1px solid rgba(56, 189, 248, 0.3); }
+.metal-card.palladium .metal-badge-icon { background: rgba(168, 85, 247, 0.15); color: var(--palladium-primary); border: 1px solid rgba(168, 85, 247, 0.3); }
+
+.metal-names {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.metal-name-ko {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #fff;
+  white-space: nowrap;
+}
+
+.metal-code {
+  font-size: 0.74rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  letter-spacing: 0.3px;
+  white-space: nowrap;
+}
+
+/* 실시간 / 추정치 뱃지 (한 줄로 절대 깨지지 않게 고정) */
+.card-tag {
+  font-size: 0.72rem;
+  padding: 3px 8px;
+  border-radius: 6px;
+  font-weight: 700;
+  white-space: nowrap;
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  line-height: 1.2;
+}
+
+.card-tag.realtime {
+  background: rgba(34, 197, 94, 0.12);
+  color: #22c55e;
+  border: 1px solid rgba(34, 197, 94, 0.3);
+}
+
+.card-tag.simulated {
+  background: rgba(249, 115, 22, 0.12);
+  color: #f97316;
+  border: 1px solid rgba(249, 115, 22, 0.3);
+}
+
+/* Card Price Display (대표 원화 + 작게 변환 전 원가격 표시) */
+.card-price-wrap {
+  margin: 6px 0 14px;
+}
+
+.price-currency-krw {
+  font-size: 1.65rem;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  color: #ffffff;
+  font-variant-numeric: tabular-nums;
+  display: block;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+/* 원화로 변환되기 전 원 가격 (USD) 작게 표시 */
+.price-original-sub {
+  font-size: 0.82rem;
+  color: #94a3b8;
+  font-weight: 500;
+  margin-top: 5px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(0, 0, 0, 0.25);
+  padding: 3px 8px;
+  border-radius: 6px;
+  width: fit-content;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  white-space: nowrap;
+}
+
+.price-original-sub .sub-label {
+  color: #64748b;
+  font-size: 0.74rem;
+}
+
+.price-original-sub .sub-val {
+  color: #e2e8f0;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.price-unit-sub {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  font-weight: 500;
+  margin-top: 4px;
+}
+
+/* Card Bottom: 1행 등락률, 2행 차트분석 (등락률 아래 한줄로 배치) */
+.card-bottom {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  width: 100%;
+}
+
+.trend-row {
+  width: 100%;
+}
+
+.trend-badge {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 6px 10px;
+  border-radius: 8px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.trend-badge.up {
+  background: var(--trend-up-bg);
+  color: var(--trend-up);
+  border: 1px solid rgba(239, 68, 68, 0.25);
+}
+
+.trend-badge.down {
+  background: var(--trend-down-bg);
+  color: var(--trend-down);
+  border: 1px solid rgba(59, 130, 246, 0.25);
+}
+
+.trend-badge .trend-pct {
+  font-weight: 800;
+}
+
+.trend-badge .trend-amt {
+  font-size: 0.74rem;
+  font-weight: 500;
+  opacity: 0.9;
+}
+
+.chart-btn-row {
+  width: 100%;
+}
+
+/* 차트분석 버튼 (등락률 아래 가로 전폭 단독 배치) */
+.jump-to-chart-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 7px 10px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.metal-card:hover .jump-to-chart-btn {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(245, 158, 11, 0.3);
+  color: var(--gold-primary);
+}
+
+.jump-to-chart-btn i {
+  font-size: 0.72rem;
+  transition: transform 0.2s ease;
+}
+
+.metal-card:hover .jump-to-chart-btn i {
+  transform: translateY(2px);
+}
+
+/* ==========================================================================
+   2. Bottom Charts Section (Vertical Individual Charts)
+   ========================================================================== */
+.section-charts {
+  margin-top: 20px;
+}
+
+.chart-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+/* Period Filter Tabs */
+.period-tabs {
+  display: flex;
+  gap: 6px;
+  background: rgba(15, 23, 42, 0.6);
+  padding: 6px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-subtle);
+}
+
+.period-tab {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 8px 18px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: var(--transition-fast);
+}
+
+.period-tab:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.period-tab.active {
+  background: #38bdf8;
+  color: #031424;
+  font-weight: 700;
+  box-shadow: 0 4px 14px rgba(56, 189, 248, 0.35);
+}
+
+/* Vertical Charts Container */
+.charts-vertical-list {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  margin-top: 20px;
+}
+
+/* Individual Metal Chart Container (세로로 1개씩) */
+.metal-chart-card {
+  background: var(--bg-card);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-xl);
+  padding: 26px 30px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  scroll-margin-top: 30px;
+}
+
+.metal-chart-card.highlight {
+  border-color: var(--gold-primary);
+  box-shadow: 0 0 35px var(--gold-glow);
+}
+
+/* Chart Header */
+.chart-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.chart-title-group {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.chart-metal-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+}
+
+.chart-metal-icon.gold { background: rgba(245, 158, 11, 0.15); color: var(--gold-primary); }
+.chart-metal-icon.silver { background: rgba(203, 213, 225, 0.15); color: var(--silver-primary); }
+.chart-metal-icon.copper { background: rgba(249, 115, 22, 0.15); color: var(--copper-primary); }
+.chart-metal-icon.platinum { background: rgba(56, 189, 248, 0.15); color: var(--platinum-primary); }
+.chart-metal-icon.palladium { background: rgba(168, 85, 247, 0.15); color: var(--palladium-primary); }
+
+.chart-title-text h3 {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.chart-title-text .chart-period-badge {
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+/* Chart Stat Summary Boxes */
+.chart-stats-summary {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.stat-box {
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  padding: 8px 14px;
+  display: flex;
+  flex-direction: column;
+}
+
+.stat-label {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.stat-value {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #fff;
+  font-variant-numeric: tabular-nums;
+  margin-top: 2px;
+}
+
+.stat-orig-sub {
+  font-size: 0.75rem;
+  color: #94a3b8;
+  font-weight: 500;
+  margin-top: 1px;
+}
+
+.stat-value.high { color: var(--trend-up); }
+.stat-value.low { color: var(--trend-down); }
+
+/* Canvas Container */
+.chart-canvas-container {
+  position: relative;
+  width: 100%;
+  height: 340px;
+  margin-top: 10px;
+}
+
+/* ==========================================================================
+   Footer
+   ========================================================================== */
+.app-footer {
+  margin-top: 60px;
+  padding-top: 24px;
+  border-top: 1px solid var(--border-subtle);
+  color: var(--text-muted);
+  font-size: 0.82rem;
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.footer-title {
+  color: var(--text-secondary);
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.footer-copy {
+  max-width: 800px;
+  line-height: 1.6;
+}
+
+.footer-tag {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 4px 10px;
+  border-radius: 6px;
+  border: 1px solid var(--border-subtle);
+  font-weight: 600;
+}
+
+/* ==========================================================================
+   Responsive Breakpoints
+   ========================================================================== */
+@media (max-width: 900px) {
+  .app-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .header-right {
+    justify-content: space-between;
+  }
+
+  .chart-card-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .chart-stats-summary {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .app-container {
+    padding: 14px 14px 40px;
+  }
+
+  .header-right {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  .unit-selector-wrapper {
+    justify-content: space-between;
+  }
+
+  .cards-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .chart-section-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .period-tabs {
+    width: 100%;
+    overflow-x: auto;
+    justify-content: space-between;
+  }
+
+  .period-tab {
+    padding: 6px 10px;
+    font-size: 0.78rem;
+  }
+
+  .chart-canvas-container {
+    height: 260px;
+  }
+
+  .metal-chart-card {
+    padding: 18px 16px;
+  }
+}
